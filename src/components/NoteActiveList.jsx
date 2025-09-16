@@ -1,17 +1,19 @@
 import React from "react";
 import NoteListItem from "./NoteListItem";
 
-function NoteAppList({ notes, onDelete }) {
+function NoteActiveList({ notes, onDelete, onArchive }) {
+  const activeNotes = notes.filter((note) => note.archived === false);
+
   return (
     <div>
       <div className="mx-auto mt-10">
-        <h1 className="text-center text-2xl font-semibold">Daftar Catatan</h1>
+        <h1 className="text-center text-2xl font-semibold">Catatan Aktif</h1>
       </div>
       <div className="flex flex-wrap mt-5 mx-50 place-content-evenly gap-4">
-        {notes.length === 0 ? (
-          <p>Tidak ada catatan</p>
+        {activeNotes.length === 0 ? (
+          <p>Tidak ada catatan aktif.</p>
         ) : (
-          notes.map((note) => (
+          activeNotes.map((note) => (
             <NoteListItem
               key={note.id}
               id={note.id}
@@ -20,6 +22,7 @@ function NoteAppList({ notes, onDelete }) {
               createdAt={note.createdAt}
               archived={note.archived}
               onDelete={onDelete}
+              onArchive={onArchive}
             />
           ))
         )}
@@ -28,4 +31,4 @@ function NoteAppList({ notes, onDelete }) {
   );
 }
 
-export default NoteAppList;
+export default NoteActiveList;

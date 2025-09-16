@@ -1,15 +1,19 @@
 import React from "react";
 import { showFormattedDate } from "../utils/index.js";
 
-function NoteListItem({ id, title, body, createdAt, archived, onDelete }) {
+function NoteListItem({ id, title, body, createdAt, archived, onDelete, onArchive }) {
   return (
-    <div className="w-64 p-3 space-x-10 rounded-md outline-2 outline-offset-2 outline-gray-500">
-      <h2 className="font-semibold">{title}</h2>
+    <div className="w-64 p-3 space-x-10 rounded-md text-justify outline-2 outline-offset-2 outline-gray-500">
+      <h2 className="min-h-12 max-h-48 align-top font-semibold text-wrap truncate">{title}</h2>
       <p>{showFormattedDate(createdAt)}</p>
-      <p className="mt-5 text-justify text-sm w-full h-64 overflow-auto">{body}</p>
-      <p className="mt-5 text-justify text-sm" hidden>{archived ? "Arsip" : "Aktif"}</p>
+      <p className="mt-5 text-sm w-full h-48 overflow-auto">{body}</p>
+      <p className="my-5 text-sm">Status: 
+         {archived ? <span className="font-semibold text-orange-500"> Diarsipkan</span> : <span className="font-semibold text-green-500"> Aktif</span>}
+      </p>
       <div className="space-y-1">
-        <button onClick={() => onDelete(id) }className="w-full h-10 rounded-sm bg-yellow-500/100 text-white">Arsip</button>
+        <button onClick={() => onArchive(id) } className="w-full h-10 rounded-sm bg-yellow-500/100 text-white">
+          <span> {archived ? "Pindahkan" : "Arsip"}</span>
+        </button>
         <button onClick={() => onDelete(id) }className="w-full h-10 rounded-sm bg-red-500/100 text-white">Hapus</button>
       </div>
     </div>
